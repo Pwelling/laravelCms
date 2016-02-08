@@ -1,0 +1,31 @@
+body {
+	font-family: 'Lato';
+}
+
+.fa-btn {
+	margin-right: 6px;
+}
+table.overzicht {
+	width: 500px;
+	display: block;
+}
+
+.bewerkCol {
+	width: 100px;
+}
+
+.nameCol{
+	width: 400px;
+}
+
+tr.even{
+	
+}
+
+tr.oneven{
+	background-color: #F7F7F7;
+}
+
+tr.even:hover, tr.oneven:hover{
+	background-color:#f8f8f8;
+}
