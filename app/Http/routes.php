@@ -54,4 +54,5 @@ Route::group(['middleware' => 'web'], function () {
 		'uses' => 'GroupController@saveGroup'
 		)
 	);
+	Route::post('/checkGroupRemoval','GroupController@checkForPages');
 });

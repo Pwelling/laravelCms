@@ -93,7 +93,7 @@ class GroupController extends Controller
 	 * Opent het scherm met het overzicht van de groepen
 	 */
 	public function listGroups(){
-		$groups = \App\Group::all();
+		$groups = Group::all();
 		return view('groups',['groups'=>$groups]);
 	}
 	
@@ -101,7 +101,7 @@ class GroupController extends Controller
 	 * Opent het scherm om een groep te bewerken
 	 */
 	public function editGroup($groupName){
-		$group = \App\Group::where('name','=',$groupName)->first();
+		$group = Group::where('name','=',$groupName)->first();
 		return view('group',['group'=>$group]);
 	}
 	
@@ -137,5 +137,15 @@ class GroupController extends Controller
 	
 	public function removeGroup(Request $request){
 		
+	}
+	
+	public function checkForPages(Request $request){
+		$id = $request->gId;
+		$return = array();
+		$pages = Group::where('id','=',$id)->first()->getPages();
+		// echo '<pre>'.print_r($pages,true).'</pre>';
+		// exit();
+		$return['result'] = (count($pages)>0) ? false : true;
+		return response()->json($return);
 	}
 }
