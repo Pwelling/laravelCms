@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Group;
 class GroupController extends Controller
 {
     /**
@@ -116,26 +116,26 @@ class GroupController extends Controller
 		$messages = [
   		  'required' => 'De groepsnaam is verplicht.',
 		];
-		
 		$validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
         ],$messages);
-		
 		if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)
                         ->withInput();
         }
 		if($id === false){ //Het is een insert
-			\DB::table('groups')
-            ->insert(['name' => $request->input('name')]);
-			$mes = 'Groep is bijgewerkt!';
-		} else { //het is een update
-			\DB::table('groups')
-            ->where('id', $id)
-            ->update(['name' => $request->input('name')]);
+			$group = new Group;
+	    	$group->name = $request->name;
+	   		$group->save();
 			$mes = 'Groep is opgeslagen!';
+		} else { //het is een update
+			Group::where('id', $id)->update(['name' => $request->input('name')]);
+			$mes = 'Groep is Bijgewerkt!';
 		}
 		return redirect('/group/'.$request->input('name'))->with('status', $mes);
+	}
+	
+	public function removeGroup(Request $request){
 		
 	}
 }

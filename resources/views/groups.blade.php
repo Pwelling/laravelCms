@@ -19,7 +19,13 @@
 					<tr class="@if($i++%2 == 0)even @else oneven @endif">
 						<td class="nameCol"><a href="/group/{{ $group->name }}">{{ $group->name }}</a></td>
 						<td class="bewerkCol"><a href="/group/{{ $group->name }}" class="bewerkLink">bewerk</a></td>
-						<td class="bewerkCol"><a onclick="removeGroup('{{ $group->name }}');" class="verwijderLink">X</a></td>
+						<td class="bewerkCol">
+							<form action="{{ url('groups/remove/'.$group->id) }}" method="POST">
+								{!! csrf_field() !!}
+								{!! method_field('DELETE') !!}
+								<button>Verwijderen</button>
+        					</form>
+        				</td>
 					</tr>
 				@endforeach
 			</tbody>
